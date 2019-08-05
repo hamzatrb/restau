@@ -1,0 +1,34 @@
+<!-- Message de notification -->
+<p class="notice">
+	<?php if($flashBag->hasMessages()):?>
+
+	<?php foreach ($flashBag->fetchMessages() as  $falsh):?> 
+
+		<?=$falsh;?>
+
+	<?php endforeach;?>
+
+	<?php endif;?>
+</p>
+<!-- Code HTML à écrire -->
+
+
+<!-- Liste des aliments -->
+<table class="generic-table meal-list">
+    <caption>Carte du restaurant</caption>
+    <tbody>
+        <!-- Code HTML à écrire -->
+        <?php foreach ($meals as $meal): ?>
+
+        <tr>
+	   <td><img src="<?= $wwwUrl ?>/images/meals/<?=$meal['Photo']?>" alt="<?=$meal['Name'] ?>"></td>
+	        <td>
+	        	<strong><?= $meal['Name'] ?></strong>
+	       		 <p><?= $meal['Description'] ?></p>
+	    	</td>
+	        <td><strong><?= $meal['SalePrice'] ?> € </strong></td>
+        </tr>
+         <?php endforeach ?>
+     	
+    </tbody>
+</table>

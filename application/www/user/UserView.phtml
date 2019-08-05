@@ -1,0 +1,107 @@
+
+<h2>Creation d'un compte Client</h2>
+<form class="generic-form" method="POST" action="<?=$requestUrl?>/user">
+ <aside class="error-message">
+    <h3><i class="fa fa-warning"></i> Il y a
+      <span id="total-error-count">1</span> erreur(s) dans le formulaire !
+    </h3>
+    <p><?=$errorMessage ?></p>
+  </aside>
+ 	<ul>
+   <fieldset>
+   
+       <legend><i class="fa fa-user"></i>Identité et cordonnées</legend> <!-- Titre du fieldset --> 
+       <li>
+       <label for="FirstName">Nom </label>
+       <input type="text" name="FirstName" id="FirstName" value ="<?=$FirstName?>" />
+       </li>
+       <li>
+       <label for="LastName">Prenom </label>
+       <input type="text" name="LastName" id="LastName" value ="<?= $LastName?>"  />
+       </li>
+
+       	<li>
+	    <label for="date">Date de Naissance: </label>
+			    <span>
+				     <select name="day">
+
+				     	<?php for($j = 1; $j <=31 ;$j++):?>
+				     		<?php if($j == date('d')) :?>
+				     		<option selected value="<?= $j ?>"><?=$j ?></option>
+				     		<?php else : ?>
+				     			<option value='<?= $j ?>'><?=$j?></option>
+				     		<?php endif;?> 
+				     	<?php endfor;?>  
+
+				     </select>
+				</span>
+			 	<span>
+		     	<select name="month">
+		        	<?php $months = ['01' =>'January','02'=>'February','03'=>'March','04'=>'April','05'=>'May',
+		                        '06'=>'June','07'=>'July','08'=>'August','09'=>'September','10'=>'October',
+		                         '11'=>'November','12'=>'December'];
+
+		                        foreach ($months as $key => $value) :?>
+
+		                        <option value="<?=$key ?>"><?=$value?></option>
+		                            
+		                        <?php endforeach ?>
+
+		     </select> 
+			</span>
+
+			<span>
+			     <select name="year">
+			     	<?php  $datefin = date('Y');
+			     	 for($year=1940; $year<=$datefin - 18; $year++): ?>
+			     		<option value="<?=$year?>"><?=$year?></option>
+			     	 <?php endfor; ?>    
+			     </select>
+			</span>
+    	</li>
+
+    	<li>
+       <label for="Address">Address</label>
+       <textarea class="textarea" type="text" name="Address"  id="Address" value= "<?=$Address?>">
+         
+       </textarea>
+       </li>
+       <li>
+       <label for="City">Ville </label>
+       <input type="text" name="City" id="City"  value="City" />
+       </li>
+       <li>
+       <label for="ZipCode">Code Postale </label>
+       <input class="zip-code" type="text" name="ZipCode" id="ZipCode" value="<?=$ZipCode?>" />
+       </li>
+       <li>
+        <label for="Country">Pays : </label>
+       <input type="text" name="Country" id="Country" value="Country" />
+       </li>
+       <li>
+        <label for="Phone">Telephone : </label>
+       <input class="phone" type="text" name="Phone" id="Phone"  value="<?=$Phone?>" />
+       </li>
+
+   </fieldset>
+ 
+   <fieldset>
+       <legend><i class="fa fa-lock"></i>Information d'authentification</legend> <!-- Titre du fieldset -->
+ 
+       <li>
+	       <label for="Email"> mail </label>
+	       <input type="email" name="Email" id="Email" value="<?=$Email?>"/>
+       </li>
+       <li>
+       	  <label for="pass">Votre mot de passe :</label>
+      	  <input type="password" name="Password" id="Password"   />
+       </li>
+       <li>
+       	<button class="button button-primary" type="submit" value="Envoyer" />Envoyer</button>
+       	<button class="button button-cancel" type="reset" value="Annuler" />Annuler</button>
+       </li>
+
+         
+   </fieldset>
+   </ul>
+</form>
