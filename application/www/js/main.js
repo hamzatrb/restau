@@ -5,9 +5,32 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
+function ajaxGetHtml(htmlMeal)
+{
 
+	$('#mealDetail').html(htmlMeal); 
+
+
+	//console.log(htmlMeal);
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // CODE PRINCIPAL                                                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
 
+
+$(function()
+{
+
+    $('#meal').on('change', displayMeals);
+});
+
+function displayMeals()
+{
+
+	var mealId = $(this).val();
+
+	$.get(getRequestUrl()+'/meal?Id=mealId', ajaxGetHtml);
+	
+
+}

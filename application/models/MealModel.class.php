@@ -16,8 +16,20 @@ class MealModel
 
 		$meals     =  	 $dataBase->query($sql);
 
-		return $meals;
+		return 	   $meals;
 
 	}
+
+	public function find($mealId)
+	{
+
+		$dataBase  = 	 new Database();
+
+		$sql 	   = 'SELECT * FROM meal WHERE Id = ?';
+
+		return 	   $dataBase->queryOne($sql, [$mealId]);
+
+	}
+
 }
 

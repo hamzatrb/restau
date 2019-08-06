@@ -18,10 +18,10 @@ class BookingModel
 				VALUES(?, ?, ?, ?, NOW())';
 
 		$idBooking = $database->executeSql($sql,[
-												 $bookingDate,
-												 $bookingTime,
-												 $numberOfSeats,
-												 $user_Id
+													$bookingDate,
+													$bookingTime,
+													$numberOfSeats,
+													$user_Id
 												]
 										  );	
 
