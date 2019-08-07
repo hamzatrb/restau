@@ -14,7 +14,6 @@ BasketSession.prototype.add = function(mealId, name, quantity, salePrice)
 {
     
     var i;
-    alert('test');
     // Conversion explicite des valeurs spécifiées en nombres.
 
 
@@ -28,7 +27,7 @@ BasketSession.prototype.add = function(mealId, name, quantity, salePrice)
 
     for (i=0; i < this.items.length ;i++)
     {
-        if(this.items[i].Id == mealId)
+        if(this.items[i].mealId == mealId)
         {
             // L'aliment spécifié a été trouvé, mise à jour de la quantité commandée.
 

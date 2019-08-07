@@ -44,13 +44,5 @@ $(function()
 		runOrderForm();
 	}
 
-	var items = new Array();
-	items.push(
-	{
-		mealId    : 'mealId',
-                          name      : 'name',
-                          quantity  : 'quantity',
-                          salePrice : 'salePrice'
-	});
-	 saveDataToDomStorage('panier', items);
+
 })
