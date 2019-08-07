@@ -1,8 +1,10 @@
 <?php
 
 /**
- * 
- */
+
+ *
+
+ **/
 class MealController 
 {
 	
@@ -12,8 +14,11 @@ class MealController
 			
 
             
+			$meal = new MealModel();
 
-			//$http->sendJsonResponse($data);
+			$meals = $meal->find($queryFields['id']);
+
+			$http->sendJsonResponse($meals);
 			
 			 
 

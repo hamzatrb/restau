@@ -1,56 +1,56 @@
-<h2><i class="fa fa-lock"></i> Passer une commande</h2>
+<h2><i class="fa fa-shopping-cart"></i> Passer une commande</h2>
 
-<form id="order-form"> class="generic-form" method="POST" action="<?=$requestUrl?>/order">
+<form data-order-step="run" id="order-form" class="generic-form ">
 
- 	  <fieldset>
-    <legend>Ajouter un article</legend>
-    <ul>
-      <li>
-          <label for="images">Nom </label>
-           <span>
-             <select id="meal" name="meals">
+    <!-- Champ caché stockant le prix de vente du produit alimentaire sélectionné -->
+    <input type="hidden" name="salePrice">
 
-                <?php foreach ($meals as $meal): ?>
-              
-                  <option value="<?=$meal['Id']?>"><?=$meal['Name']?></option>
+    <aside class="error-message hidden">
+        <h3><i class="fa fa-warning"></i> Il y a <em class="total-error-count">1</em> erreur(s) dans le formulaire !</h3>
+        <p></p>
+    </aside>
 
-                <?php endforeach;?>
+    <fieldset>
+        <legend>Ajouter un article</legend>
+        <ul>
+            <li>
+                <label for="meal">Nom :</label>
+                <select id="meal" name="meal">
+                    <?php foreach($meals as $meal): ?>
+                        <option value="<?= $meal['Id'] ?>"><?= $meal['Name'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <article id="meal-details" class="meal-details no-left-label">
+                    <img src="" alt="Photo du produit">
+                    <p></p>
+                    <span>Prix : <strong></strong></span>
+                </article>
+            </li>
+            <li>
+                <label for="quantity">Quantité :</label>
+                <input id="quantity" class="quantity" type="text" maxlength="2" name="quantity" data-name="Quantité" data-type="positive-integer" data-required>
+            </li>
+            <li>
+                <button class="button button-primary no-left-label" type="submit">Ajouter</button>
+            </li>
+        </ul>
+    </fieldset>
 
-             </select>
-           </span>
-      </li>
-
-      <li>
-
-          
-              <aside id="meal-details" class="meal-details">
-                  <img src="" alt="">
-                  <p></p>
-                  <p><span>Prix:</span><strong>3,00€</strong></p>
-              </aside>
-              
-          
-      </li>
-      <li>
-        <label for="QuantityOrdered">Quantité :</label>
-        <input type="text" class="quantity" name="QuantityOrdered">
-      </li>
-      <li>
-      <input id="validate-order" class="button button-primary" type="submit" value="Ajouter">
-     
-    </li>
-    </ul>
-  </fieldset>
-
-  <fieldset>
-    <legend>Récapitulatif de la commande</legend>
-    <!-- Message de notification -->
-    
-    <p id="order-summary"></p>
-      
-  </fieldset>
-
- 
-  </ul>
+    <fieldset>
+        <legend>Récapitulatif de la commande</legend>
+        <section id="order-summary"></section>
+    </fieldset>
 </form>
 
+<ul class="link-list">
+    <li>
+        <button id="validate-order" class="button button-primary" disabled>Valider la commande</button>
+        <a class="button button-cancel small" href="<?= $requestUrl ?>">Annuler</a>
+    </li>
+</ul>
+
+
+<!-- Classes de gestion du formulaire de commande -->
+<!-- Ce code JavaScript n'est chargé QUE depuis l'URL /order/payment/success -->
+<script src="<?= $wwwUrl ?>/js/classes/BasketSession.class.js"></script>
+<script src="<?= $wwwUrl ?>/js/classes/OrderForm.class.js"></script>

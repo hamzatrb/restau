@@ -9,12 +9,13 @@ class OrderController
 		public function httpGetMethod(Http $http, array $queryFields)
 		{
 			
-			$meal  		 =    new MealModel();
+				$meal  		 =    new MealModel();
 
-			$meals 		 =	$meal->listAll();
+
+				$meals 		 =	$meal->listAll(); 
 			
 
-			return ['meals' =>$meals];
+				return ['meals' =>$meals];
 			
 			 
 

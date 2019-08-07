@@ -3,34 +3,54 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // FONCTIONS                                                                           //
 /////////////////////////////////////////////////////////////////////////////////////////
-
-
-function ajaxGetHtml(htmlMeal)
+function runOrderForm()
 {
+		
+		var orderForm;
+		var orderStep;
 
-	$('#mealDetail').html(htmlMeal); 
+		orderForm = new OrderForm();
+
+		orderStep = $('[data-order-step]').data('order-step');
 
 
-	//console.log(htmlMeal);
+	switch(orderStep)
+	{
+		
+		case 'run': 
+		orderForm.run();
+		break;
+
+		case 'succes':
+		orderForm.success();
+		break;
+
+	}
+
 }
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // CODE PRINCIPAL                                                                      //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-
 $(function()
 {
+	$('#notice').delay(3000).fadeOut('slow');
 
-    $('#meal').on('change', displayMeals);
-});
+	if(typeof OrderForm != 'undefined' )
+	{
+		runOrderForm();
+	}
 
-function displayMeals()
-{
-
-	var mealId = $(this).val();
-
-	$.get(getRequestUrl()+'/meal?Id=mealId', ajaxGetHtml);
-	
-
-}
+	var items = new Array();
+	items.push(
+	{
+		mealId    : 'mealId',
+                          name      : 'name',
+                          quantity  : 'quantity',
+                          salePrice : 'salePrice'
+	});
+	 saveDataToDomStorage('panier', items);
+})

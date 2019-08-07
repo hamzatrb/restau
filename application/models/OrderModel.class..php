@@ -79,15 +79,15 @@ class OrderModel
 		{
 
 
-		 	 $totalAmount+= $basketItem['QuantityOrdered'] * $basketItem['PriceEach'];
+		 	 $totalAmount+= $basketItem['quantity'] * $basketItem['PriceEach'];
 
 		 		
 
 		 	 $database->executeSql($sqlInsertOrderLine, [ 
-		 	 												$basketItem['QuantityOrdered'],
+		 	 												$basketItem['quantity'],
 										 	        		$basketItem['Meal_Id'],
 										 	 	   			$orderId,
-										 	 	   			$basketItem['PriceEach']
+										 	 	   			$basketItem['salePrice']
 										 	 	        ]
 								  );	
 		}

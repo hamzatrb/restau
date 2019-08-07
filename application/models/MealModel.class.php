@@ -15,7 +15,7 @@ class MealModel
 		$sql  	   = 	'SELECT * FROM meal';
 
 		$meals     =  	 $dataBase->query($sql);
-
+		
 		return 	   $meals;
 
 	}
@@ -26,7 +26,7 @@ class MealModel
 		$dataBase  = 	 new Database();
 
 		$sql 	   = 'SELECT * FROM meal WHERE Id = ?';
-
+		
 		return 	   $dataBase->queryOne($sql, [$mealId]);
 
 	}
