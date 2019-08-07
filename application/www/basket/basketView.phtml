@@ -1,0 +1,19 @@
+<table>
+	<tr>
+		<th>Quantite</th>
+		<th>Produit</th>
+		<th>Prix Unitaire</th>
+		<th>Prix Total</th>
+	</tr>
+
+	<?php foreach ($basketViews as  $basketView): ?>
+	<tr>
+
+		
+		<td><?=$basketView['quantity']?></td>
+		<td><?=$basketView['name']?></td>
+		<td><?=$basketView['salePrice']?> € </td>
+		<td><?=$basketView['salePrice'] * $basketView['quantity']?> € </td>
+	</tr>
+<?php endforeach; ?>
+</table>

@@ -33,6 +33,8 @@ OrderForm.prototype.onAjaxRefreshOrderSummary = function(basketViewHtml)
     // Insertion du contenu du panier (la vue en PHP) dans le document HTML.
 
 
+    this.$orderSummary.HTML(basketViewHtml);
+    
     // Est-ce que le panier est vide ?
     if(this.basketSession.isEmpty() == true)
     {
@@ -165,12 +167,17 @@ OrderForm.prototype.onSubmitForm = function(event)
     }
 
     
+    this.refreshOrderSummary();
 
     this.basketSession.add(     this.$meal.val(),
                                 this.$meal.find('option:selected').text(),
                                 this.$form.find('input[name=quantity]').val(),
                                 this.$form.find('input[name=salePrice]').val()
                           );
+
+
+    this.$form.trigger('reset');
+    this.$meal.trigger()
 
 
 
@@ -222,7 +229,9 @@ OrderForm.prototype.refreshOrderSummary = function()
      * Ainsi form.basketItems donnera du côté du serveur en PHP $formFields['basketItems']
      */
     formFields =
+
     {
+        basketItems: this.basketSession.items
     };
 
     /*
@@ -231,9 +240,11 @@ OrderForm.prototype.refreshOrderSummary = function()
      */
     $.post
     (
-         // URL de destination
-         // Données HTTP POST
-         // Au retour de la réponse HTTP
+         getRequestUrl()+'/basket',
+
+         formFields,
+
+         this.onAjaxRefreshOrderSummary.bind(this)
     );
 };
 
