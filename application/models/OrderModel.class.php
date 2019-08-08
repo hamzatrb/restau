@@ -2,8 +2,8 @@
 /**
  * 
  */
-class OrderModel 
-{
+class OrderModel {
+
 	
 	public function find($orderId)
 	{
@@ -11,7 +11,7 @@ class OrderModel
 		$database = new Database();
 
 
-		$sql 	  = 'SELECT * FROM order WHERE Id = ?';
+		$sql 	  = 'SELECT * FROM `order` WHERE Id = ?';
 
 
 		return $database->queryOne($sql, [$orderId]);
@@ -51,10 +51,10 @@ class OrderModel
 	public function validate($userId, array $basketItems)
 	{
 
-		$Database 			= new Database();
+		$database 			= new Database();
 
 
-		$sqlInsertOrder 	= 'INSERT INTO order
+		$sqlInsertOrder 	= 'INSERT INTO `order`
 
 						       (User_Id, TaxRate, CreationTimestamp)
 
@@ -79,20 +79,21 @@ class OrderModel
 		{
 
 
-		 	 $totalAmount+= $basketItem['quantity'] * $basketItem['PriceEach'];
+		 	 $totalAmount+= $basketItem['quantity'] * $basketItem['salePrice'];
 
 		 		
 
-		 	 $database->executeSql($sqlInsertOrderLine, [ 
+		$database->executeSql($sqlInsertOrderLine,	    [ 
 		 	 												$basketItem['quantity'],
-										 	        		$basketItem['Meal_Id'],
+										 	        		$basketItem['mealId'],
 										 	 	   			$orderId,
 										 	 	   			$basketItem['salePrice']
 										 	 	        ]
-								  );	
+							  );
+
 		}
 					 
-		$sqlUpdate = 'UPDATE order SET  CompleteTimestamp = NOW(),
+		$sqlUpdate = 'UPDATE `order` SET  CompleteTimestamp = NOW(),
 
 										TotalAmount = ?,
 
@@ -108,6 +109,8 @@ class OrderModel
 		 								  ]
 		 					 );  
 
+
+		return $orderId;
 		
 
 

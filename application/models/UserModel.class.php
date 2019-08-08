@@ -21,6 +21,23 @@ class UserModel
 
 	}
 
+	public function find($id)
+	{
+
+		$database = new Database();
+
+        // Récupération de l'utilisateur ayant l'email spécifié 
+
+        $sql = 'SELECT * FROM user WHERE Id = ?';
+
+
+        $user = $database->queryOne($sql,[$id]);
+
+        return $user;
+
+
+	}
+
 	 public function findWithEmailPassword($email, $password)
 	
     {

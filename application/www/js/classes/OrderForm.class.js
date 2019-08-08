@@ -19,13 +19,21 @@ OrderForm.prototype.onAjaxClickValidateOrder = function(result)
     var orderId;
 
     // Désérialisation du résulat en JSON contenant le numéro de commande.
+
+    orderId = JSON.parse(result);
+
+   // console.log(result);
+
     
 
     // Redirection HTTP vers la page de demande de paiement de la commande.
+
     window.location.assign
     (
+        getRequestUrl()+'/order/payement?id='+orderId
       
     );
+
 };
 
 OrderForm.prototype.onAjaxRefreshOrderSummary = function(basketViewHtml)
@@ -36,14 +44,16 @@ OrderForm.prototype.onAjaxRefreshOrderSummary = function(basketViewHtml)
     this.$orderSummary.html(basketViewHtml);
 
     // Est-ce que le panier est vide ?
-    if(this.basketSession.isEmpty() == true)
-    {
-        // Oui, le bouton de validation de commande est désactivé.
+   if(this.basketSession.isEmpty() == true)
+     {
+        this.$validateOrder.attr('disabled',true);
+    //    // Oui, le bouton de validation de commande est désactivé.
        
-    }
-    else
+     }
+     else
     {
         // Non, le bouton de validation de commande est activé.
+        this.$validateOrder.attr('disabled',false);
        
     }
 };
@@ -103,17 +113,30 @@ OrderForm.prototype.onClickRemoveBasketItem = function(event)
      * Récupération de l'objet jQuery représentant le bouton de suppression sur
      * lequel l'utilisateur a cliqué.
      */
+
+    $button  = $(event.currentTarget);
+
     
 
     // Récupération du produit alimentaire relié au bouton.
-    
 
+    mealId = $button.data('meal-id');
+
+    
     // Suppression du produit alimentaire du panier.
+
+
+    this.basketSession.remove(mealId);
     
 
 
     // Mise à jour du récapitulatif de la commande.
 
+    this.refreshOrderSummary();
+
+
+
+    event.preventDefault();
 
     /*
      * Par défaut les navigateurs ont pour comportement d'envoyer le formulaire
@@ -135,6 +158,7 @@ OrderForm.prototype.onClickValidateOrder = function()
      */
     formFields =
     {
+       basketItems:  this.basketSession.items
     };
 
     /*
@@ -143,9 +167,11 @@ OrderForm.prototype.onClickValidateOrder = function()
      */
     $.post
     (
-            // URL de destination
-            // Données HTTP POST
-            // Au retour de la réponse HTTP
+         getRequestUrl()+'/order/validation',
+
+         formFields,
+
+         this.onAjaxClickValidateOrder.bind(this)
     );
 };
 
@@ -176,7 +202,8 @@ OrderForm.prototype.onSubmitForm = function(event)
 
 
     this.$form.trigger('reset');
-    this.$meal.trigger();
+
+    this.$meal.trigger('change');
 
     this.refreshOrderSummary();
 
@@ -233,7 +260,6 @@ OrderForm.prototype.refreshOrderSummary = function()
     {
         basketItems: this.basketSession.items
     };
-
     /*
      * Exécution d'une requête HTTP POST AJAH (Asynchronous JavaScript And HTML)
      * pour récupérer le contenu du panier sous la forme d'un document HTML.

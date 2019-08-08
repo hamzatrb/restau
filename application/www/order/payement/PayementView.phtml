@@ -1,0 +1,60 @@
+<h2><i class="fa fa-check"></i> Payer la commande</h2>
+
+<section class="invoice">
+    <p><strong><?= $customer['FirstName'] ?> <?= $customer['LastName'] ?></strong></p>
+    <p><?= $customer['Address'] ?></p>
+    <p><?= $customer['ZipCode'] ?> <span class="city"><?= $customer['City'] ?></span></p>
+</section>
+
+<table class="generic-table meal-list">
+    <caption>Récapitulatif de la commande</caption>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th class="number">Quantité</th>
+            <th class="number">Prix Unitaire</th>
+            <th class="number">Prix Total</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total HT</td>
+            <td><?= number_format($order['TotalAmount'], 2) ?> €</td>
+        </tr>
+        <tr>
+            <td colspan="3">TVA (<?= $order['TaxRate'] ?> %)</td>
+            <td><?= number_format($order['TaxAmount'], 2) ?> €</td>
+        </tr>
+        <tr>
+            <td class="colorful" colspan="3">Total TTC</td>
+            <td class="colorful"><?= number_format($order['TotalAmount'] + $order['TaxAmount'], 2) ?> €</td>
+        </tr>
+        <tr class="small-notice">
+            <td colspan="4">Commandé le <?= $order['CompleteTimestamp'] ?></td>
+        </tr>
+    </tfoot>
+    <tbody>
+        <?php foreach($orderLines as $orderLine): ?>
+            <tr>
+                <td>
+                    <img src="<?= $wwwUrl ?>/images/meals/<?= $orderLine['Photo']; ?>" width="25%">
+                    <em><?= $orderLine['Name'] ?></em>
+                </td>
+                <td class="number"><?= $orderLine['QuantityOrdered'] ?></td>
+                <td class="number"><?= number_format($orderLine['PriceEach'], 2) ?> €</td>
+                <td class="number"><?= number_format($orderLine['PriceEach'] * $orderLine['QuantityOrdered'], 2) ?> €</td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+<hr>
+<h3>Merci de bien vouloir procéder au paiement de la commande.</h3>
+<form class="generic-form" action="<?= $requestUrl ?>/order/payment" method="POST">
+	<ul>
+		<li>
+			<input class="button button-primary" type="submit" value="Payer">
+			<a class="button button-cancel small" href="<?= $requestUrl ?>">Annuler</a>
+		</li>
+	</ul>
+</form>

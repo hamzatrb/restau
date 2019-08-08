@@ -20,7 +20,14 @@ class BasketController
  				$formFields['basketItems'] = [];
 			}
 
-			return ['basketViews' => $formFields['basketItems']]; 
+			//var_dump($formFields['basketItems']); die();
+
+
+			return [	
+						'_raw_template'=>true,
+
+						'basketItems' => $formFields['basketItems']
+				   ]; 
 
 
 
