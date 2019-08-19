@@ -8,7 +8,7 @@ class LoginForm extends Form
 	
 	public function build()
 	{
-		$this->addFormField('Email');
+		$this->addFormField('email');
 
 	}
 }

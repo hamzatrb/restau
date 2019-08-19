@@ -31,5 +31,29 @@ class MealModel
 
 	}
 
+	public function addMeal($meal,$photo)
+	{
+
+		$dataBase  = 	 new Database();
+
+	$sql = 'INSERT INTO meal (Name, Description, Photo, QuantityInStock, BuyPrice, SalePrice)
+
+				VALUES(?, ?, ?, ?, ?, ?)';
+
+	$idMeal = $dataBase->executeSql($sql,[
+											$meal['lastName'],
+											$meal['description'],
+											$photo,
+											$meal['stockInitial'],
+											$meal['prixAchat'],
+											$meal['PrixVente']
+										]
+									);			
+
+	}
+
+
+
+
 }
 

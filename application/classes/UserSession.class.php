@@ -109,7 +109,23 @@ class UserSession
 		
 
 	}
+		public function getAdmin()
+	{
+		if($this->isAuthenticated())
+		{
 
+			
+			return $_SESSION['user']['Admin'];
+		
+
+		}
+		 
+
+			return NULL;
+
+		
+
+	}
 	public function isAuthenticated()
 	{
 		

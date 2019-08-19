@@ -50,7 +50,7 @@ OrderForm.prototype.onAjaxRefreshOrderSummary = function(basketViewHtml)
     //    // Oui, le bouton de validation de commande est désactivé.
        
      }
-     else
+    else
     {
         // Non, le bouton de validation de commande est activé.
         this.$validateOrder.attr('disabled',false);
@@ -256,7 +256,6 @@ OrderForm.prototype.refreshOrderSummary = function()
      * Ainsi form.basketItems donnera du côté du serveur en PHP $formFields['basketItems']
      */
     formFields =
-
     {
         basketItems: this.basketSession.items
     };

@@ -81,11 +81,14 @@ class Http
         {
             return false;
         }
-
+  
         // Build the absolute path to the destination file.
         $filename = WWW_PATH."$path/".$_FILES[$name]['name'];
 
         move_uploaded_file($_FILES[$name]['tmp_name'], $filename);
+
+        //tmp_name : chemin qui existe dans mon pc bureau/telechragement/
+        //$filename : enregistrer dans le serveur avec le chemin qui existe dans mon framework
 
         return pathinfo($filename, PATHINFO_BASENAME);
     }

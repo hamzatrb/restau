@@ -1,0 +1,56 @@
+<h2><i class="fa fa-lock"></i> Ajout d'un produit alimentaire au catalogue</h2>
+
+<form class="generic-form" method="POST" action="<?= $requestUrl ?>/admin/meal" enctype="multipart/form-data">
+<aside class="error-message hidden">
+    <h3><i class="fa fa-warning"></i> Il y a
+      <span id="total-error-count">1</span> erreur(s) dans le formulaire !
+    </h3>
+    <p></p>
+  </aside>
+ 	  <fieldset>
+    <legend>caracteristique</legend>
+    <ul>
+    <li>
+        <label for="lastName">Nom :</label>
+        <input id="lastName" type="text" name="lastName" data-required data-name="Nom" value="">
+      </li>
+      <li>
+        <label class="textarea" for="description">description :</label>
+        <textarea id="description" name="description" rows="3"></textarea>
+      </li>
+      <li>
+        <label class="" for="photo">Photo :</label>
+        <input type="file" id="photo" name="photo">
+      </li>  
+    
+    </ul>
+  </fieldset>
+
+  <fieldset>
+    <legend>Approvisionnement</legend>
+    <ul>
+    <li>
+        <label for="stockInitial">stock Initial:</label>
+        <input id="stockInitial" class="money" type="text" name="stockInitial">
+    </li>
+   
+    <li>
+        <label for="prixAchat">Prix Achat:</label>
+        <input id="prixAchat" class="money" type="text" name="prixAchat">€
+    </li>
+
+     <li>
+        <label for="PrixVente">Prix de vente:</label>
+        <input id="PrixVente" class="money" type="text" name="PrixVente">€
+    </li>
+    </ul>
+
+  </fieldset>
+
+  <ul>
+    <li>
+      <input class="button button-primary" type="submit" value="Ajouter">
+      <a class="button button-cancel small" href="<?= $requestUrl ?>">Annuler</a>
+    </li>
+  </ul>
+</form>

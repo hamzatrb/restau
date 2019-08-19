@@ -24,7 +24,7 @@ class loginController
 
 			$user  		= new UserModel();
 
-			$resultUser = $user->findWithEmailPassword($formFields['Email'],$formFields['Password']);
+			$resultUser = $user->findWithEmailPassword($formFields['email'],$formFields['password']);
 
 			//creation du session 
 

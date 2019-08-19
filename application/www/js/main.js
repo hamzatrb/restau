@@ -29,6 +29,22 @@ function runOrderForm()
 
 }
 
+function runFormValidation()
+{
+	var $form;
+	var formValidator;
+
+	$form = $('form: not([data-no-validation=true])');
+
+	if($form.length == 1)
+	{
+		
+		formValidator = new FormValidator($form);
+
+		formValidator.run();
+	}
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -39,9 +55,12 @@ $(function()
 {
 	$('#notice').delay(3000).fadeOut('slow');
 
+	runFormValidation();
+
 	if(typeof OrderForm != 'undefined' )
 	{
 		runOrderForm();
+
 	}
 
 

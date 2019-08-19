@@ -8,14 +8,14 @@ class UserForm extends Form
 {
     public function build()
     {
-        $this->addFormField('LastName');
-        $this->addFormField('FirstName');
-        $this->addFormField('Address');
-        $this->addFormField('City');
-        $this->addFormField('ZipCode');
-        $this->addFormField('Phone');
-        $this->addFormField('Country');
-        $this->addFormField('Email');
+        $this->addFormField('lastName');
+        $this->addFormField('firstName');
+        $this->addFormField('address');
+        $this->addFormField('city');
+        $this->addFormField('zipCode');
+        $this->addFormField('phone');
+        $this->addFormField('country');
+        $this->addFormField('email');
     }
 }
 

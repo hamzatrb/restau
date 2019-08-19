@@ -4,73 +4,87 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>3WA Restaurant</title>
+
     <link rel="stylesheet" href="<?= $wwwUrl ?>/css/normalize-3.0.3.min.css">
     <link rel="stylesheet" href="<?= $wwwUrl ?>/css/font-awesome-4.3.0.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps|Karla">
 
     <!-- Feuilles de styles de l'application -->
     <link rel="stylesheet" href="<?= $wwwUrl ?>/css/3wa-resto.css">
     <link rel="stylesheet" href="<?= $wwwUrl ?>/css/ui-button.css">
     <link rel="stylesheet" href="<?= $wwwUrl ?>/css/ui-form.css">
     <link rel="stylesheet" href="<?= $wwwUrl ?>/css/ui-table.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps|Karla">
 
     <!-- Librairie jQuery -->
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <!-- JavaScript de l'application -->
     <script src="<?= $wwwUrl ?>/js/utilities.js"></script>
-
-    
+    <script src="<?= $wwwUrl ?>/js/classes/FormValidator.class.js"></script>
 </head>
 <body>
 
-<!-- En-tête commune -->
-<header>
-    <h1>
-        <a href="<?= $requestUrl ?>">
-            <img src="<?= $wwwUrl ?>/images/logo.gif" height="63" width="57" alt="3WA Restaurant">Restaurant - Made In America !
-        </a>
-    </h1>
-</header>
+    <!-- En-tête commune -->
+    <header>
+        <h1>
+            <a href="<?= $requestUrl ?>">
+                <img src="<?= $wwwUrl ?>/images/logo.gif" height="63" width="57" alt="3WA Restaurant">Restaurant - Made In America !
+            </a>
+        </h1>
+    </header>
 
-<!-- Interface utilisateur -->
-<nav class="user-interface">
+    <!-- Interface utilisateur -->
+    <nav class="user-interface">
+        <ul class="link-list">
+            <?php if($userSession->getAdmin() == 1): ?>
+                <li>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/admin">Admin</a>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/admin/Meal">Meal</a>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/admin/user">Admin user</a>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/booking">Réserver</a>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/order">Commander</a>
+                </li>
+                <li class="layout-right">
+                    <p class="welcome">Bonjour <strong><?= $userSession->getFullName() ?></strong> !</p>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/user/logout">Déconnexion</a>
+                </li>
+            <?php elseif($userSession->isAuthenticated() == true): ?>
+                <li>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/booking">Réserver</a>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/order">Commander</a>
+                </li>
+                <li class="layout-right">
+                    <p class="welcome">Bonjour <strong><?= $userSession->getFullName() ?></strong> !</p>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/user/logout">Déconnexion</a>
+                </li>
+        <?php else: ?>
+                <li>
+                    <a class="button button-primary" href="<?= $requestUrl ?>/user">Créer un compte</a>
+                </li>
+                <li class="layout-right">
+                    <a class="button button-primary" href="<?= $requestUrl ?>/user/login">Connexion</a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
 
-    <ul class="link-list">
-        <?php if($userSession->isAuthenticated() == true): ?>
-        <li>
-            <a class="button button-primary" href="<?=$requestUrl?>/booking">Réserver</a>
-            <a class="button button-primary" href="<?=$requestUrl?>/order">Commander</a>
-        </li>
-         <li class="layout-right">
-            <p class="welcome">Bonjour <strong><?=$userSession->getFullName()?></strong></p>
-            <a class="button button-primary" href="<?=$requestUrl?>/user/logout">Déconnexion</a>
-        </li>
-        <?php else : ?>
-        <!-- Code HTML/PHP à écrire -->
-        <li><a href="<?= $requestUrl ?>/user" class="button button-primary">créer un compte</a></li>
-        <li><a href="<?= $requestUrl ?>/user/login" class=" button button-primary">connexion</a></li>
-    <?php endif; ?>
-    </ul>
-</nav>
+    <main>
+        <!-- Affichage du template lié à la vue -->
+        <?php include $this->viewData['template'] ?>
+    </main>
 
-<main>
-    <!-- Affichage du template lié à la vue -->
-    <?php include $this->viewData['template'] ?>
-</main>
+    <!-- Pied de page commun -->
+    <footer>
+        <ul class="link-list">
+            <li><img src="<?= $wwwUrl ?>/images/payment/visa.png" alt="Visa"></li>
+            <li><img src="<?= $wwwUrl ?>/images/payment/mastercard.png" alt="MasterCard"></li>
+            <li><img src="<?= $wwwUrl ?>/images/payment/paypal.png" alt="PayPal"></li>
+        </ul>
+        <small>Réalisé avec <i class="fa fa-heart"></i>&nbsp; par la 3W Academy</small>
+    </footer>
 
-<!-- Pied de page commun -->
-<footer>
-    <ul class="link-list">
-        <li><img src="<?= $wwwUrl ?>/images/payment/visa.png" alt="Visa"></li>
-        <li><img src="<?= $wwwUrl ?>/images/payment/mastercard.png" alt="MasterCard"></li>
-        <li><img src="<?= $wwwUrl ?>/images/payment/paypal.png" alt="PayPal"></li>
-    </ul>
-    <small>Réalisé avec <i class="fa fa-heart"></i>&nbsp; par les élèves de la 3W Academy</small>
-</footer>
-
-<!-- Code principal JavaScript de l'application -->
-
-<script src="<?= $wwwUrl ?>/js/main.js"></script>
+    <!-- Code principal JavaScript de l'application -->
+    <script src="<?= $wwwUrl ?>/js/main.js"></script>
 </body>
 </html>
