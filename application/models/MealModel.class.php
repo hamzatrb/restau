@@ -52,6 +52,18 @@ class MealModel
 
 	}
 
+	public function removeMeal($mealId)
+	{
+		$dataBase  = 	 new Database();
+
+		$sql = 'DELETE FROM meal WHERE Id = ?';
+
+		$idDelete = $dataBase->executeSql($sql, [$mealId]);
+
+
+	}
+
+
 
 
 

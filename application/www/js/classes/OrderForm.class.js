@@ -8,31 +8,66 @@ var OrderForm = function()
     this.$mealDetails   = $('#meal-details');
     this.$orderSummary  = $('#order-summary');
     this.$validateOrder = $('#validate-order');
+    this.$detailCommande= $('#detailCommande');
 
     this.basketSession = new BasketSession();
 };
 
-
-
-OrderForm.prototype.onAjaxClickValidateOrder = function(result)
+OrderForm.prototype.onAjaxDisplayOrderDetails = function(result)
 {
+    var orderDetails;
+
+    // Désérialisation du résulat en JSON contenant les listes des commandes .
+
+    orderDetails = JSON.parse(result);
+
+
+    this.$form.children('p.nameOrder').text(orderDetails.Name);
+
+    this.$form.find('p.OrderPrix').text(formatMoneyAmount(orderDetails.PriceEach));
+
+    this.$form.find('p.OrderQuantity').text(orderDetails.QuantityOrdered);
+
+
+    /*this.$detailCommande.children('img').attr('src',imageUrl);
+
+    this.$form.find('input[name=salePrice]').val(meal.SalePrice);*/
+
+
+   
+
+};
+
+
+
+OrderForm.prototype.onDisplayOrderDetails = function(result)
+{
+    
     var orderId;
 
-    // Désérialisation du résulat en JSON contenant le numéro de commande.
+    orderId = this.$detailCommande.data('order');
 
-    orderId = JSON.parse(result);
+    // Récupération de l'id de l'aliment sélectionné dans la liste déroulante.
+    /*
+     * Exécution d'une requête HTTP GET AJAJ (Asynchronous JavaScript And JSON)
+     * pour récupérer les informations de l'aliment sélectionné dans la liste déroulante.
+     */
+        $.ajax(url :getRequestUrl()+'/admin',
+                    data :'idOrder='+orderId, 
+                    this.onAjaxDisplayOrderDetails.bind(this));
+        
 
-   // console.log(result);
+        $.ajax({
+               url : getRequestUrl()+'/admin/detail',
+               type : 'GET',
+               dataType : 'html', // On désire recevoir du HTML
+               success : function(code_html, statut){ // code_html contient le HTML renvoyé
+                   
+               }
+              });
 
-    
+       //  $.getJSON(getRequestUrl()+'/meal?id='+mealId,this.onAjaxChangeMeal.bind(this)) 
 
-    // Redirection HTTP vers la page de demande de paiement de la commande.
-
-    window.location.assign
-    (
-        getRequestUrl()+'/order/payement?id='+orderId
-      
-    );
 
 };
 
@@ -77,6 +112,7 @@ OrderForm.prototype.onChangeMeal = function()
          // Méthode appelée au retour de la réponse HTTP
 
     );
+
 };
 
 OrderForm.prototype.onAjaxChangeMeal = function(meal)
@@ -144,6 +180,27 @@ OrderForm.prototype.onClickRemoveBasketItem = function(event)
      *
      * Il faut donc empêcher le comportement par défaut du navigateur.
      */
+};
+OrderForm.prototype.onAjaxClickValidateOrder = function(result)
+{
+    var orderId;
+
+    // Désérialisation du résulat en JSON contenant le numéro de commande.
+
+    orderId = JSON.parse(result);
+
+   // console.log(result);
+
+    
+
+    // Redirection HTTP vers la page de demande de paiement de la commande.
+
+    window.location.assign
+    (
+        getRequestUrl()+'/order/payement?id='+orderId
+      
+    );
+
 };
 
 OrderForm.prototype.onClickValidateOrder = function()
@@ -275,6 +332,8 @@ OrderForm.prototype.refreshOrderSummary = function()
 
 OrderForm.prototype.run = function()
 {
+
+  
     /*
      * Installation d'un gestionnaire d'évènement sur la sélection d'un aliment
      * dans la liste déroulante des aliments.
@@ -325,3 +384,13 @@ OrderForm.prototype.success = function()
     // Effacement du panier.
     this.basketSession.clear();
 };
+
+OrderForm.prototype.details = function()
+{
+    // Effacement du panier.
+
+      this.$detailCommande.on('click',this.onDisplayOrderDetails.bind(this));
+
+    
+};
+

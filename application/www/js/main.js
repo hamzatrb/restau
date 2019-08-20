@@ -21,7 +21,11 @@ function runOrderForm()
 		orderForm.run();
 		break;
 
-		case 'succes':
+		case 'success':
+		orderForm.success();
+		break;
+
+		case 'details':
 		orderForm.success();
 		break;
 
@@ -34,7 +38,7 @@ function runFormValidation()
 	var $form;
 	var formValidator;
 
-	$form = $('form: not([data-no-validation=true])');
+	$form = $('form:not([data-no-validation = true])');
 
 	if($form.length == 1)
 	{

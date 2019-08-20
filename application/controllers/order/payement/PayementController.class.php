@@ -19,7 +19,7 @@ class PayementController
 
 			$order = $orderModel->find($queryFields['id']);
 
-		 //var_dump($order);die();
+		 	//var_dump($order);die();
 
 			$oderLines =  $orderModel->findOrderLines($queryFields['id']); 
 

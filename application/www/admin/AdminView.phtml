@@ -1,0 +1,58 @@
+<h2><i class="fa fa-lock"></i> Ajout d'un produit alimentaire au catalogue</h2>
+<form class="generic-form" id="order-form"> method="POST" action="<?= $requestUrl ?>/admin"> 
+  
+  <fieldset>
+    <legend>Historique d'administration</legend>
+    <table class="generic-table">
+    	<thead>
+    		<tr>
+    			<th>Num Com</th>
+    			<th>Num User</th>
+    			<th>Date Créa</th>
+    			<th>Date Succ</th>
+    			<th>Tva</th>
+    			<th>prix Tva</th>
+    			<th>Total</th>
+    			<th>Detail</th>
+    		</tr>
+    	</thead>
+     
+        <?php foreach ($orders as  $order): ?>
+       
+          <tr>
+            <td class="colorful" data-order="<?=$order['Id']?>"><?=$order['Id']?></td>
+            <td class="colorful"><?=$order['User_Id']?></td>
+            <td><?=$order['CreationTimestamp']?></td>
+       		<td><?=$order['CompleteTimestamp']?></td>
+       		<td><?=$order['TaxRate']?> %</td>
+       		<td><?=$order['TaxAmount']?> €</td>
+       		<td><?=$order['TotalAmount']?> €</td>
+       		<td><button class="button" id="detailCommande">Detail Commande</button></td>
+         </tr>
+      <?php endforeach ?>
+    
+    </table>
+   
+    
+  </fieldset>
+  <fieldset>
+  	<legend>Details commande</legend>
+  	<table>
+  		<thead>
+  			<tr>
+	  			<th>Name</th>
+	  			<th>PriceEach</th>
+	  			<th>QuantityOrdered</th>
+  			</tr>
+
+  		</thead>
+  		<tfoot>
+  			<tr>
+  				<td><p class="nameOrder"></p></td>
+  				<td><p class="OrderPrix"></p></td>
+  				<td><p class="OrderQuantity"></p></td>	
+  			</tr>
+  		</tfoot>
+  	</table>
+  </fieldset>
+</form>

@@ -18,6 +18,20 @@ class OrderModel {
 
 	}
 
+	public function listAll()
+	{
+
+		$dataBase  = 	 new Database();
+
+		$sql  	   = 	"SELECT * FROM `order`";
+
+
+		$orders     =  	 $dataBase->query($sql);
+		
+		return 	   $orders;
+
+	}
+
 	
 
 	public function findOrderLines($orderId)

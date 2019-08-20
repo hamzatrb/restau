@@ -49,8 +49,35 @@
 
   <ul>
     <li>
-      <input class="button button-primary" type="submit" value="Ajouter">
+      <input class="button button-primary" type="submit" value="Ajouter" name="envoyer">
       <a class="button button-cancel small" href="<?= $requestUrl ?>">Annuler</a>
     </li>
   </ul>
+
+</form>
+<form class="generic-form" method="POST" action="<?= $requestUrl ?>/admin/meal"> 
+  
+  <fieldset>
+    <legend>Retirer l'article</legend>
+    <table class="generic-table">
+     
+        <?php foreach ($meals as  $meal): ?>
+       
+          <tr>
+            <td><?=$meal['Name']?></td>
+            <td class="number"><?=$meal['SalePrice']?> €</td>
+            <td><input type="checkbox" name="choix[]" value="<?=$meal['Id']?>"></td>
+          </tr>
+       
+      <?php endforeach ?>
+    
+    </table>
+     <ul>
+    <li>
+      <input class="button button-primary" type="submit" value="Supprimer" name="envoyer">
+      <a class="button button-cancel small" href="<?= $requestUrl ?>">Annuler</a>
+    </li>
+  </ul>
+    
+  </fieldset>
 </form>
